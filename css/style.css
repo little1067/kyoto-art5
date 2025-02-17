@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-top: 50px;
+}
+
+p {
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+}
+
+
+@font-face {
+    font-family: 'MyFont'; /* フォントの名前を「MyFont」と設定 */
+    src: url('fonts/MyFont-Regular.ttf') format('truetype'); /* フォントファイルへのパス */
+}
+
+h1 {
+    font-family: 'MyFont', sans-serif; /* MyFontフォントを適用 */
+}

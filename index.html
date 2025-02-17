@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京都芸術大学附属高校脱出ゲーム</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        /* 背景設定 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #2c3e50;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            transition: background-color 1s, box-shadow 1s;
+        }
+
+        /* ボタンのスタイル */
+        button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* 画像と問題の表示エリア */
+        #image, #answerSection {
+            display: none;
+            margin-top: 16px;
+        }
+
+        #image {
+            max-width: 100%;
+            height: auto;
+        }
+        /* 背景に表示するはてなマーク */
+        .question-mark {
+            position: absolute;
+            font-size: 50px; /* はてなマークを少し大きく */
+            color: rgba(255, 255, 255, 0.5); /* 半透明 */
+            animation: moveQuestionMarks 15s linear infinite; /* 同じアニメーションを全てに適用 */
+            cursor: pointer;
+            z-index: -1;
+            transition: transform 0.3s, color 0.3s, opacity 0.3s;
+        }
+
+        /* 複数列で表示するためのアニメーション */
+        @keyframes moveQuestionMarks {
+            0% {
+                transform: translate(0, 0); /* 開始位置 */
+            }
+            100% {
+                transform: translate(100vw, 100vh); /* 右下に動かす */
+            }
+        }
+
+        /* クリック時のエフェクト */
+        .question-mark.clicked {
+            color: yellow; /* 色を変える */
+            transform: scale(1.5); /* 拡大する */
+            opacity: 1; /* 完全に不透明に */
+        }
+        /* 正解後のキラキラ背景 */
+        @keyframes glitterEffect {
+            0% {
+                background: linear-gradient(45deg, #ffd966, #f4c542, #e0c048);
+                box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                background: linear-gradient(45deg, #e0c048, #ffd966, #f4c542);
+                box-shadow: 0 0 30px 15px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                background: linear-gradient(45deg, #ffd966, #f4c542, #e0c048);
+                box-shadow: 0 0 40px 20px rgba(255, 255, 255, 0.7);
+            }
+        }
+
+        .correct-background {
+            animation: glitterEffect 5s infinite;
+        }
+
+        /* メッセージのスタイル */
+        #congratulationsMessage {
+            display: none;
+            font-family: 'Lobster', cursive;
+            font-size: 30px;
+            color: #fff;
+            margin-top: 30px;
+            animation: messageFadeIn 2s ease-out;
+        }
+
+        @keyframes messageFadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="text">最後の問題を解いて脱出しよう！<br>この問題を解くと最後の指示が現れます。</div>
+        <button id="toggleButton">最終問題に挑戦する</button>
+        <img id="image" src="class5.jpg" alt="最終問題">
+        <div id="answerSection">
+            <p>以下に解答を入力してください。:</p>
+            <input type="text" id="answer" placeholder="解答を入力">
+            <button id="submitAnswer">送信</button>
+        </div>
+    </div>
+
+    <div id="congratulationsMessage">
+        おめでとう！正解です！！<br>この問題を解けたチームは<br>人間館1階の春秋座前に<br>行き、荒木先生と写真を撮ろう！<br>(写りたくなかったら<br>写らなくても大丈夫!)
+    </div>
+
+    <script>
+        document.getElementById("toggleButton").addEventListener("click", function() {
+            document.getElementById("text").style.display = "none";
+            document.getElementById("image").style.display = "block";
+            document.getElementById("answerSection").style.display = "block";
+            this.style.display = "none";
+        });
+
+        document.getElementById("submitAnswer").addEventListener("click", function() {
+            const answer = document.getElementById("answer").value.trim();
+            const correctAnswer = "あいことば";
+            if (answer === correctAnswer) {
+                alert("正解です！最後の指示へ！");
+
+                // 背景のキラキラ効果を適用
+                document.body.classList.add("correct-background");
+
+                // メッセージを表示
+                document.getElementById("congratulationsMessage").style.display = "block";
+
+                // 問題関連の要素を非表示
+                document.getElementById("image").style.display = "none";
+                document.getElementById("answerSection").style.display = "none";
+            } else {
+                alert("不正解です。もう一度考えてください。");
+            }
+        });
+    </script>
+</body>
+</html>
